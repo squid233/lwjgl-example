@@ -62,7 +62,7 @@ public class Main implements Runnable, AutoCloseable {
     public void close() {
         glfwFreeCallbacks(hwnd);
         glfwDestroyWindow(hwnd);
-        glfwSetErrorCallback(null).free();
         glfwTerminate();
+        glfwSetErrorCallback(null).free();
     }
 }
