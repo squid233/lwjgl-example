@@ -13,8 +13,7 @@ repositories {
 }
 
 dependencies {
-    implementation 'io.github.over-run:glutils:0.9.0'
-    implementation 'org.lwjgl:lwjgl-glfw'
+    implementation 'io.github.over-run:glutils:1.0.0'
     runtimeOnly 'org.lwjgl:lwjgl::natives-windows'
     runtimeOnly 'org.lwjgl:lwjgl-glfw::natives-windows'
     runtimeOnly 'org.lwjgl:lwjgl-opengl::natives-windows'
@@ -40,12 +39,10 @@ jar {
 
 task sourcesJar(type: Jar, dependsOn: classes) {
     archiveClassifier.set 'sources'
-    from sourceSets.main.allSource
-    from 'LICENSE'
+    from sourceSets.main.allSource, 'LICENSE'
 }
 
 task javadocJar(type: Jar, dependsOn: javadoc) {
     archiveClassifier.set 'javadoc'
-    from javadoc
-    from 'LICENSE'
+    from javadoc, 'LICENSE'
 }
