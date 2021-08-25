@@ -1,19 +1,20 @@
 plugins {
     id 'java'
+    id 'idea'
 }
 
 sourceCompatibility = targetCompatibility = JavaVersion.VERSION_11
 
 group 'io.github.username'
 archivesBaseName = 'project-name'
-version '0.1.0'
+version '0.1.0-SNAPSHOT'
 
 repositories {
     mavenCentral()
 }
 
 dependencies {
-    implementation 'io.github.over-run:glutils:1.0.0'
+    implementation 'io.github.over-run:glutils:1.1.0'
     runtimeOnly 'org.lwjgl:lwjgl::natives-windows'
     runtimeOnly 'org.lwjgl:lwjgl-glfw::natives-windows'
     runtimeOnly 'org.lwjgl:lwjgl-opengl::natives-windows'
@@ -30,7 +31,7 @@ jar {
         attributes 'Main-Class': 'org.example.Main',
                 'Specification-Title': archiveBaseName,
                 'Specification-Vendor': 'username',
-                'Specification-Version': '1',
+                'Specification-Version': '0',
                 'Implementation-Title': 'Name',
                 'Implementation-Vendor': 'username',
                 'Implementation-Version': archiveVersion
@@ -46,3 +47,5 @@ task javadocJar(type: Jar, dependsOn: javadoc) {
     archiveClassifier.set 'javadoc'
     from javadoc, 'LICENSE'
 }
+
+idea.module.inheritOutputDirs = true
