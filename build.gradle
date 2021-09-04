@@ -11,10 +11,12 @@ version '0.1.0-SNAPSHOT'
 
 repositories {
     mavenCentral()
+    // temporary maven repository
+    maven { url 'https://s01.oss.sonatype.org/content/repositories/releases' }
 }
 
 dependencies {
-    implementation 'io.github.over-run:glutils:1.1.0'
+    implementation 'io.github.over-run:glutils:1.2.0'
     runtimeOnly 'org.lwjgl:lwjgl::natives-windows'
     runtimeOnly 'org.lwjgl:lwjgl-glfw::natives-windows'
     runtimeOnly 'org.lwjgl:lwjgl-opengl::natives-windows'
