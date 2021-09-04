@@ -2,13 +2,14 @@ package org.example;
 
 import org.lwjgl.glfw.GLFWErrorCallback;
 import org.lwjgl.opengl.GL;
+import org.overrun.glutils.wnd.Framebuffer;
+import org.overrun.glutils.wnd.GLFWindow;
 
-import static org.lwjgl.glfw.Callbacks.glfwFreeCallbacks;
 import static org.lwjgl.glfw.GLFW.*;
 import static org.lwjgl.opengl.GL11.*;
 
 public class Main implements Runnable, AutoCloseable {
-    public long hwnd;
+    public GLFWindow window;
 
     public static void main(String[] args) {
         try (Main main = new Main()) {
@@ -27,18 +28,18 @@ public class Main implements Runnable, AutoCloseable {
     public void start() {
         GLFWErrorCallback.createPrint().set();
         glfwInit();
-        hwnd = glfwCreateWindow(800, 600, "lwjgl-basic", 0, 0);
-        glfwSetKeyCallback(hwnd, (window, key, scancode, action, mods) -> {
+        window = new GLFWindow(800, 600, "lwjgl-basic");
+        window.keyCb((hWnd, key, scancode, action, mods) -> {
             if (action == GLFW_PRESS) {
                 if (key == GLFW_KEY_ESCAPE) {
-                    glfwSetWindowShouldClose(window, true);
+                    glfwSetWindowShouldClose(hWnd, true);
                 }
             }
         });
-        glfwSetFramebufferSizeCallback(hwnd, (window, width, height) -> {
-            resize(width, height);
-        });
-        glfwMakeContextCurrent(hwnd);
+        framebuffer = new Framebuffer();
+        framebuffer.cb = (hWnd, width, height) -> resize(width, height);
+        framebuffer.init(window);
+        window.makeCurr();
         GL.createCapabilities();
         glClearColor(0, 0, 0, 1);
         resize(800, 600);
@@ -48,20 +49,20 @@ public class Main implements Runnable, AutoCloseable {
 
     @Override
     public void run() {
-        while (!glfwWindowShouldClose(hwnd)) {
-            glClear(GL_COLOR_BUFFER_BIT);
+        while (!window.shouldClose()) {
             render();
-            glfwSwapBuffers(hwnd);
             glfwPollEvents();
         }
     }
 
-    public void render() {}
+    public void render() {
+        glClear(GL_COLOR_BUFFER_BIT);
+        window.swapBuffers();
+    }
 
     @Override
     public void close() {
-        glfwFreeCallbacks(hwnd);
-        glfwDestroyWindow(hwnd);
+        window.free();
         glfwTerminate();
         glfwSetErrorCallback(null).free();
     }
