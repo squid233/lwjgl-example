@@ -10,6 +10,7 @@ import static org.lwjgl.opengl.GL11.*;
 
 public class Main implements Runnable, AutoCloseable {
     public GLFWindow window;
+    public Framebuffer framebuffer; 
 
     public static void main(String[] args) {
         try (Main main = new Main()) {
