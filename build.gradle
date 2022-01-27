@@ -16,7 +16,7 @@ repositories {
 }
 
 dependencies {
-    implementation 'io.github.over-run:glutils:1.2.0'
+    implementation 'io.github.over-run:glutils:1.6.0'
     runtimeOnly 'org.lwjgl:lwjgl::natives-windows'
     runtimeOnly 'org.lwjgl:lwjgl-glfw::natives-windows'
     runtimeOnly 'org.lwjgl:lwjgl-opengl::natives-windows'
